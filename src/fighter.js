@@ -8,13 +8,14 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+// Get random follower
 function getFollower() {
   let location = document.querySelector('#loc').contentWindow.document;
   let army = location.querySelector('#your_army').contentWindow.document;
   let solders = army.querySelectorAll('td.cp');
-
   let i = getRandomInt(0, 2);
-
+  let soldersType = solders[i].parentElement.parentElement.parentElement.parentElement.parentElement;
+  console.log(soldersType.id);
   return solders[i];
 }
 
