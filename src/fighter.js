@@ -24,8 +24,8 @@
   }
 
   function logWatcher() {
-    let combat = $location.querySelector('#combat_panel').contentWindow.document;
-    const $combatLog = combat.getElementById('log');
+    let $combat = $location.querySelector('#combat_panel').contentWindow.document;
+    const $combatLog = $combat.getElementById('log');
 
     let logObserver = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
@@ -33,7 +33,7 @@
           getFollower().click();
         }, getRandomInt(config.minDelay, config.maxDelay));
 
-        let leaveEl = combat.querySelector('#la a');
+        let leaveEl = $combat.querySelector('#la a');
 
         if (leaveEl && config.leave) {
           logObserver.disconnect();
@@ -50,22 +50,22 @@
   }
 
   function enemyFollowerWatcher() {
-    let combat = $location.querySelector('#combat_panel').contentWindow.document;
-    const $enemyFollower = combat.getElementById('army_pane_r');
+    let $combat = $location.querySelector('#combat_panel').contentWindow.document;
+    const $enemyFollower = $combat.getElementById('army_pane_r');
 
     let enemyFollowerObserver = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
         console.log('YES');
         setTimeout(function() {
-          let enemyTitle = $enemyFollower.qurySelectorAll('tr td')[2].qurySelectorAll('img')[1].title;
+          let enemyTitle = $enemyFollower.querySelectorAll('tr td')[2].querySelectorAll('img')[1].title;
           let enemy = enemyTitle.substr(0, enemyTitle.indexOf(' '));
-          console.log('enemy');
+          console.log(enemy);
           if (enemy === 'Неизвестный') {
             getFollower().click();
           }
         }, getRandomInt(config.minDelay, config.maxDelay));
 
-        let leaveEl = combat.querySelector('#la a');
+        let leaveEl = $combat.querySelector('#la a');
 
         if (leaveEl && config.leave) {
           enemyFollowerObserver.disconnect();
@@ -75,6 +75,7 @@
     });
 
     const enemyFollowerConfig = {
+      childList: true,
       attributes: true
     };
 
