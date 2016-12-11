@@ -1,4 +1,4 @@
-(function() {
+function fighter() {
 
   const config = {
     minDelay: 0,
@@ -16,11 +16,17 @@
   // Get random follower
   function getFollower() {
     let army = $location.getElementById('your_army').contentWindow.document;
-    let solders = army.querySelectorAll('td.cp');
-    let i = getRandomInt(0, 2);
-    let soldersType = solders[i].parentElement.parentElement.parentElement.parentElement.parentElement;
-    console.log(soldersType.id);
-    return solders[i];
+    let types = ['divDrak', 'divRyc', 'divDam'];
+    let randomType = types[getRandomInt(0, types.length - 1)];
+    let species = army.getElementById(randomType).querySelectorAll('.ArmyShow');
+    let speciesActive = [];
+    for(let i = 0; i < species.length; i++) {
+      if(species[i].display !== 'none') {
+        speciesActive.push(species[i].id);
+      }
+    }
+    let i = getRandomInt(0, speciesActive.length - 1);
+    return army.getElementById(randomType).querySelector('#' + speciesActive[i]).querySelector('td.cp');
   }
 
   function logWatcher() {
@@ -55,11 +61,9 @@
 
     let enemyFollowerObserver = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
-        console.log('YES');
         setTimeout(function() {
           let enemyTitle = $enemyFollower.querySelectorAll('tr td')[2].querySelectorAll('img')[1].title;
           let enemy = enemyTitle.substr(0, enemyTitle.indexOf(' '));
-          console.log(enemy);
           if (enemy === 'Неизвестный') {
             getFollower().click();
           }
@@ -93,4 +97,4 @@
       logWatcher();
     }
   })(config);
-})();
+}

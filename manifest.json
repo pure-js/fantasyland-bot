@@ -10,6 +10,14 @@
     "default_popup": "popup.html",
     "default_title": "Click here!"
   },
+
+  "content_scripts": [
+    {
+      "matches": ["http://www.google.com/*"],
+      "js": ["src/fighter.js"]
+    }
+  ],
+
   "permissions": [
     "activeTab",
     "https://ajax.googleapis.com/"
