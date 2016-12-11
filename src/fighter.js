@@ -35,8 +35,8 @@ function fighter() {
         speciesActive.push(species[i].id);
       }
     }
-    let i = getRandomInt(0, speciesActive.length - 1);
-    return army.getElementById(randomType).querySelector('#' + speciesActive[i]).querySelector('td.cp');
+    let random = getRandomInt(0, speciesActive.length - 1);
+    return army.getElementById(randomType).querySelector('#' + speciesActive[random]).querySelector('td.cp');
   }
 
   function getEnemy() {
