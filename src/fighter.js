@@ -4,20 +4,30 @@ function fighter() {
     minDelay: 0,
     maxDelay: 3700,
     leave: true,
+    types: ['divDrak', 'divRyc', 'divDam'],
     afterEnemy: true
   }
-
-  const $location = document.getElementById('loc').contentWindow.document;
 
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
+  function leave(observer, $combat) {
+    if(config.leave) {
+      let leaveEl = $combat.querySelector('#la a');
+
+      if (leaveEl) {
+        observer.disconnect();
+        leaveEl.click();
+      }
+    }
+  }
+
   // Get random follower
   function getFollower() {
+    let $location = document.getElementById('loc').contentWindow.document;
     let army = $location.getElementById('your_army').contentWindow.document;
-    let types = ['divDrak', 'divRyc', 'divDam'];
-    let randomType = types[getRandomInt(0, types.length - 1)];
+    let randomType = config.types[getRandomInt(0, config.types.length - 1)];
     let species = army.getElementById(randomType).querySelectorAll('.ArmyShow');
     let speciesActive = [];
     for(let i = 0; i < species.length; i++) {
@@ -29,8 +39,18 @@ function fighter() {
     return army.getElementById(randomType).querySelector('#' + speciesActive[i]).querySelector('td.cp');
   }
 
+  function getEnemy() {
+    $location = document.getElementById('loc').contentWindow.document;
+    $combat = $location.getElementById('combat_panel').contentWindow.document;
+    $enemyFollower = $combat.getElementById('army_pane_r');
+    let enemyTitle = $enemyFollower.querySelectorAll('tr td')[2].querySelectorAll('img')[1].title;
+    let enemy = enemyTitle.substr(0, enemyTitle.indexOf(' '));
+    return enemy;
+  }
+
   function logWatcher() {
-    let $combat = $location.querySelector('#combat_panel').contentWindow.document;
+    let $location = document.getElementById('loc').contentWindow.document;
+    let $combat = $location.getElementById('combat_panel').contentWindow.document;
     const $combatLog = $combat.getElementById('log');
 
     let logObserver = new MutationObserver(function(mutations) {
@@ -39,12 +59,7 @@ function fighter() {
           getFollower().click();
         }, getRandomInt(config.minDelay, config.maxDelay));
 
-        let leaveEl = $combat.querySelector('#la a');
-
-        if (leaveEl && config.leave) {
-          logObserver.disconnect();
-          leaveEl.click();
-        }
+        leave(logObserver, $combat);
       });
     });
 
@@ -56,25 +71,20 @@ function fighter() {
   }
 
   function enemyFollowerWatcher() {
-    let $combat = $location.querySelector('#combat_panel').contentWindow.document;
-    const $enemyFollower = $combat.getElementById('army_pane_r');
+    let $location = document.getElementById('loc').contentWindow.document;
+    let $combat = $location.getElementById('combat_panel').contentWindow.document;
+    let $enemyFollower = $combat.getElementById('army_pane_r');
 
     let enemyFollowerObserver = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
         setTimeout(function() {
-          let enemyTitle = $enemyFollower.querySelectorAll('tr td')[2].querySelectorAll('img')[1].title;
-          let enemy = enemyTitle.substr(0, enemyTitle.indexOf(' '));
+          let enemy = getEnemy();
           if (enemy === 'Неизвестный') {
             getFollower().click();
           }
         }, getRandomInt(config.minDelay, config.maxDelay));
 
-        let leaveEl = $combat.querySelector('#la a');
-
-        if (leaveEl && config.leave) {
-          enemyFollowerObserver.disconnect();
-          leaveEl.click();
-        }
+        leave(enemyFollowerObserver, $combat);
       });
     });
 
@@ -87,10 +97,7 @@ function fighter() {
   }
 
   (function fight(config) {
-    let combat = $location.querySelector('#combat_panel').contentWindow.document;
-
     getFollower().click();
-
     if(config.afterEnemy) {
       enemyFollowerWatcher();
     } else {
@@ -98,3 +105,4 @@ function fighter() {
     }
   })(config);
 }
+fighter();

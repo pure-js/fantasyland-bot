@@ -1,4 +1,4 @@
-(function() {
+function walker() {
 
   const $location = document.getElementById('loc').contentWindow.document;
   const $noCombat = $location.getElementsByName('no_combat')[0].contentWindow.document;
@@ -71,5 +71,5 @@
   }
 
   go();
-
-})();
+}
+walker();

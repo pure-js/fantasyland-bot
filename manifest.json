@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "Fantasyland bot",
-  "description": "This extension allaw you to play automaticly",
-  "version": "1.0.0",
+  "description": "This extension allaw to you play automaticly",
+  "version": "1.0.1",
 
   "browser_action": {
     "default_icon": "icon.png",
@@ -11,15 +11,9 @@
     "default_title": "Click here!"
   },
 
-  "content_scripts": [
-    {
-      "matches": ["http://www.google.com/*"],
-      "js": ["src/fighter.js"]
-    }
-  ],
-
   "permissions": [
+    "tabs",
     "activeTab",
-    "https://ajax.googleapis.com/"
+    "http://*.fantasyland.ru/*"
   ]
 }

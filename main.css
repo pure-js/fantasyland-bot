@@ -10,3 +10,9 @@ body {
   overflow: hidden;
   max-width: 400px;
 }
+
+.fight-btn {
+  outline: none;
+  border-radius: 1px;
+  background: #000;
+}
