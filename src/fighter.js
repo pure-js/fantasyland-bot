@@ -1,49 +1,95 @@
-const config = {
-  minDelay: 0,
-  maxDelay: 3700,
-  leave: true
-}
+(function() {
 
-const $location = document.getElementById('loc').contentWindow.document;
+  const config = {
+    minDelay: 0,
+    maxDelay: 3700,
+    leave: true,
+    afterEnemy: true
+  }
 
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
+  const $location = document.getElementById('loc').contentWindow.document;
 
-// Get random follower
-function getFollower() {
-  let army = $location.getElementById('your_army').contentWindow.document;
-  let solders = army.querySelectorAll('td.cp');
-  let i = getRandomInt(0, 2);
-  let soldersType = solders[i].parentElement.parentElement.parentElement.parentElement.parentElement;
-  console.log(soldersType.id);
-  return solders[i];
-}
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
 
-(function fight(config) {
-  let combat = $location.querySelector('#combat_panel').contentWindow.document;
-  let combatLog = combat.querySelector('#log');
+  // Get random follower
+  function getFollower() {
+    let army = $location.getElementById('your_army').contentWindow.document;
+    let solders = army.querySelectorAll('td.cp');
+    let i = getRandomInt(0, 2);
+    let soldersType = solders[i].parentElement.parentElement.parentElement.parentElement.parentElement;
+    console.log(soldersType.id);
+    return solders[i];
+  }
 
-  getFollower().click();
+  function logWatcher() {
+    let combat = $location.querySelector('#combat_panel').contentWindow.document;
+    const $combatLog = combat.getElementById('log');
 
-  let observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      setTimeout(function() {
-        getFollower().click();
-      }, getRandomInt(config.minDelay, config.maxDelay));
+    let logObserver = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        setTimeout(function() {
+          getFollower().click();
+        }, getRandomInt(config.minDelay, config.maxDelay));
 
-      let leaveEl = combat.querySelector('#la a');
+        let leaveEl = combat.querySelector('#la a');
 
-      if (leaveEl && config.leave) {
-        observer.disconnect();
-        leaveEl.click();
-      }
+        if (leaveEl && config.leave) {
+          logObserver.disconnect();
+          leaveEl.click();
+        }
+      });
     });
-  });
 
-  const observerConfig = {
-    childList: true
-  };
+    const logObserverConfig = {
+      childList: true
+    };
 
-  observer.observe(combatLog, observerConfig);
-})(config);
+    logObserver.observe($combatLog, logObserverConfig);
+  }
+
+  function enemyFollowerWatcher() {
+    let combat = $location.querySelector('#combat_panel').contentWindow.document;
+    const $enemyFollower = combat.getElementById('army_pane_r');
+
+    let enemyFollowerObserver = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        console.log('YES');
+        setTimeout(function() {
+          let enemyTitle = $enemyFollower.qurySelectorAll('tr td')[2].qurySelectorAll('img')[1].title;
+          let enemy = enemyTitle.substr(0, enemyTitle.indexOf(' '));
+          console.log('enemy');
+          if (enemy === 'Неизвестный') {
+            getFollower().click();
+          }
+        }, getRandomInt(config.minDelay, config.maxDelay));
+
+        let leaveEl = combat.querySelector('#la a');
+
+        if (leaveEl && config.leave) {
+          enemyFollowerObserver.disconnect();
+          leaveEl.click();
+        }
+      });
+    });
+
+    const enemyFollowerConfig = {
+      attributes: true
+    };
+
+    enemyFollowerObserver.observe($enemyFollower, enemyFollowerConfig);
+  }
+
+  (function fight(config) {
+    let combat = $location.querySelector('#combat_panel').contentWindow.document;
+
+    getFollower().click();
+
+    if(config.afterEnemy) {
+      enemyFollowerWatcher();
+    } else {
+      logWatcher();
+    }
+  })(config);
+})();
