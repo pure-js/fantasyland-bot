@@ -4,9 +4,20 @@ function fighter() {
     minDelay: 0,
     maxDelay: 3700,
     leave: true,
-    types: ['divDrak', 'divRyc', 'divDam'],
     afterEnemy: true
   }
+
+  const lvl = 3;
+
+  const pattern = {
+    dragon: 1,
+    knight: 2,
+    lady: 3,
+    regular: 01,
+    poison: 02
+  }
+
+  const types = ['divDrak', 'divRyc', 'divDam'];
 
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -24,19 +35,35 @@ function fighter() {
   }
 
   // Get random follower
-  function getFollower() {
+  function getUnit() {
     let $location = document.getElementById('loc').contentWindow.document;
     let army = $location.getElementById('your_army').contentWindow.document;
-    let randomType = config.types[getRandomInt(0, config.types.length - 1)];
-    let species = army.getElementById(randomType).querySelectorAll('.ArmyShow');
-    let speciesActive = [];
-    for(let i = 0; i < species.length; i++) {
-      if(species[i].display !== 'none') {
-        speciesActive.push(species[i].id);
+
+    let type = getUnitType(army);
+
+    let units = type.querySelectorAll('.ArmyShow');
+
+    let activeUnits = [];
+
+    for(let i = 0; i < units.length; i++) {
+      let unit = units[i];
+      let poison = unit.querySelector('td.cp');
+      console.log(poison);
+      if(unit.display === 'none') {
+        continue;
       }
+      activeUnits.push(unit.id);
     }
-    let random = getRandomInt(0, speciesActive.length - 1);
-    return army.getElementById(randomType).querySelector('#' + speciesActive[random]).querySelector('td.cp');
+    console.log(activeUnits);
+    let random = getRandomInt(0, activeUnits.length - 1);
+    let unit = type.querySelector('#' + activeUnits[random]).querySelector('td.cp');
+    return unit;
+  }
+
+  function getUnitType(arg) {
+    let random = getRandomInt(0, types.length - 1);
+    let type = types[random];
+    return arg.getElementById(type);
   }
 
   function getEnemy() {
@@ -56,7 +83,7 @@ function fighter() {
     let logObserver = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
         setTimeout(function() {
-          getFollower().click();
+          getUnit().click();
         }, getRandomInt(config.minDelay, config.maxDelay));
 
         leave(logObserver, $combat);
@@ -80,7 +107,7 @@ function fighter() {
         setTimeout(function() {
           let enemy = getEnemy();
           if (enemy === 'Неизвестный') {
-            getFollower().click();
+            getUnit().click();
           }
         }, getRandomInt(config.minDelay, config.maxDelay));
 
@@ -97,7 +124,7 @@ function fighter() {
   }
 
   (function fight(config) {
-    getFollower().click();
+    getUnit().click();
     if(config.afterEnemy) {
       enemyFollowerWatcher();
     } else {

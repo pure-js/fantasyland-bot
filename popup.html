@@ -2,11 +2,47 @@
 <html>
   <head>
     <title>Getting Started Extension's Popup</title>
-    <link href='main.css'></style>
+    <link href='main.css'>
+    <style>
+      body {
+        margin: 0;
+        width: 400px;
+        padding: 6px 0;
+      }
+      .fights {
+        width: 50%;
+        padding: 0 10px;
+        float: left;
+      }
+      .walks {
+        width: 50%;
+        padding: 0 10px;
+        padding: 6px 10px;
+      }
+      .btn {
+        cursor: pointer;
+        outline: none;
+        background: #fff;
+        border: 1px solid #111;
+        border-radius: 3px;
+        transition: background .5s, border .4s;
+      }
+      .btn:hover {
+        background: #f2f2f2;
+        border: 1px dotted #111;
+      }
+      .btn_active {
+        background: #111;
+        color: #fff;
+      }
+    </style>
   </head>
   <body>
-    <button id="fight" type="button" class="btn fight-btn">Fight</button>
-    <button id="walk" type="button" class="btn walk-btn">Walk</button>
+    <div class="fights">
+      <button id="fight" type="button" class="btn fight-btn">Fight</button>
+      <button id="fight-random" type="button" class="btn fight-btn">Random</button>
+    </div>
+    <button id="walks" type="button" class="btn walk-btn">Walk</button>
     <script src="popup.js"></script>
   </body>
 </html>
