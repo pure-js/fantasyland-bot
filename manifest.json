@@ -1,13 +1,13 @@
 {
   "manifest_version": 2,
 
-  "name": "Fantasyland bot",
+  "name": "Fantasyland chrome extension",
   "description": "This extension allaw to you play automaticly",
-  "version": "1.0.1",
+  "version": "1.0.2",
 
   "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html",
+    "default_icon": "img/icon.png",
+    "default_popup": "src/popup.html",
     "default_title": "Click here!"
   },
 
@@ -19,6 +19,7 @@
   "permissions": [
     "tabs",
     "activeTab",
+    "<all_urls> ",
     "http://*.fantasyland.ru/*"
   ]
 }

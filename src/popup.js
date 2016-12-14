@@ -1,3 +1,10 @@
+function random() {
+  chrome.tabs.executeScript({
+    file: 'src/random.js'
+  });
+}
+random();
+
 function fight() {
   chrome.tabs.executeScript({
     file: 'src/fighter.js'
@@ -10,10 +17,20 @@ function walk() {
   });
 }
 
-function random() {
+function randomUnit() {
   chrome.tabs.executeScript({
     file: 'src/fight/random-unit.js'
   });
+}
+
+function captcha() {
+  chrome.tabs.captureVisibleTab(function (image) {
+    // You can add that image HTML5 canvas, or Element.
+    console.log(image);
+  });
+  // chrome.tabs.executeScript({
+  //   file: 'src/captcha.js'
+  // });
 }
 
 function toggle(el) {
@@ -27,4 +44,5 @@ for(let el of toggles) {
   el.addEventListener('click', toggle(this));
 }
 
-document.getElementById('fight-random').addEventListener('click', random);
+document.getElementById('fight-random').addEventListener('click', randomUnit);
+document.getElementById('captcha').addEventListener('click', captcha);

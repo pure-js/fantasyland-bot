@@ -1,8 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Getting Started Extension's Popup</title>
-    <link href='main.css'>
+    <title>Fantasyland chrome extension popup</title>
     <style>
       body {
         margin: 0;
@@ -44,7 +43,7 @@
       .settings-btn {
         width: 20px;
         height: 20px;
-        background: url('settings.svg') no-repeat;
+        background: url('../img/settings.svg') no-repeat;
         border: none;
       }
       .settings-btn-margin {
@@ -65,9 +64,7 @@
       <div class="column">
         <div class="row">
           <button id="fight" type="button" class="btn fight-btn">Fight</button>
-          <button type="button" class="btn settings-btn settings-btn-margin toggle">
-            <img src="settings.svg">
-          </button>
+          <button type="button" class="btn settings-btn settings-btn-margin toggle"></button>
           <div class="hidden">
             <label>
               <input type="checkbox" name="" value="">after
@@ -81,9 +78,10 @@
       <div class="column">
         <div class="row">
           <button id="walk" type="button" class="btn fight-btn">Walk</button>
+          <button id="captcha" type="button" class="btn fight-btn">Get captcha</button>
         </div>
       </div>
     </div>
-    <script src="src/popup.js"></script>
+    <script src="popup.js"></script>
   </body>
 </html>

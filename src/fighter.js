@@ -48,13 +48,11 @@ function fighter() {
     for(let i = 0; i < units.length; i++) {
       let unit = units[i];
       let poison = unit.querySelector('td.cp');
-      console.log(poison);
       if(unit.display === 'none') {
         continue;
       }
       activeUnits.push(unit.id);
     }
-    console.log(activeUnits);
     let random = getRandomInt(0, activeUnits.length - 1);
     let unit = type.querySelector('#' + activeUnits[random]).querySelector('td.cp');
     return unit;
