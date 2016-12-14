@@ -11,6 +11,11 @@
     "default_title": "Click here!"
   },
 
+  "background": {
+    "scripts": ["src/random.js"],
+    "persistent": false
+  },
+
   "permissions": [
     "tabs",
     "activeTab",

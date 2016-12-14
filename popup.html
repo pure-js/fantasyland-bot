@@ -7,42 +7,83 @@
       body {
         margin: 0;
         width: 400px;
-        padding: 6px 0;
+        padding: 0px 0;
       }
-      .fights {
+      .control-panel {
+        display: block;
+        overflow: hidden;
+      }
+      .column {
         width: 50%;
         padding: 0 10px;
         float: left;
+        box-sizing: border-box;
       }
-      .walks {
-        width: 50%;
-        padding: 0 10px;
-        padding: 6px 10px;
+      .row {
+        margin: 6px 0;
       }
       .btn {
         cursor: pointer;
         outline: none;
         background: #fff;
-        border: 1px solid #111;
-        border-radius: 3px;
-        transition: background .5s, border .4s;
-      }
-      .btn:hover {
-        background: #f2f2f2;
-        border: 1px dotted #111;
+        border: none;
       }
       .btn_active {
         background: #111;
         color: #fff;
       }
+      .fight-btn {
+        border: 1px solid #111;
+        border-radius: 3px;
+        transition: background .5s, border .4s;
+      }
+      .fight-btn:hover {
+        background: #f2f2f2;
+        border: 1px dotted #111;
+      }
+      .settings-btn {
+        width: 20px;
+        height: 20px;
+        background: url('settings.svg') no-repeat;
+        border: none;
+      }
+      .settings-btn-margin {
+        margin: 0 0 0 2px;
+      }
+      .settings-btn:hover {
+        animation: spin 6s ease-in infinite;
+      }
+      @keyframes spin {
+         100% {
+           transform:rotate(360deg);
+         }
+       }
     </style>
   </head>
   <body>
-    <div class="fights">
-      <button id="fight" type="button" class="btn fight-btn">Fight</button>
-      <button id="fight-random" type="button" class="btn fight-btn">Random</button>
+    <siv class="control-panel">
+      <div class="column">
+        <div class="row">
+          <button id="fight" type="button" class="btn fight-btn">Fight</button>
+          <button type="button" class="btn settings-btn settings-btn-margin toggle">
+            <img src="settings.svg">
+          </button>
+          <div class="hidden">
+            <label>
+              <input type="checkbox" name="" value="">after
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <button id="fight-random" type="button" class="btn fight-btn">Random</button>
+        </div>
+      </div>
+      <div class="column">
+        <div class="row">
+          <button id="walk" type="button" class="btn fight-btn">Walk</button>
+        </div>
+      </div>
     </div>
-    <button id="walks" type="button" class="btn walk-btn">Walk</button>
-    <script src="popup.js"></script>
+    <script src="src/popup.js"></script>
   </body>
 </html>
