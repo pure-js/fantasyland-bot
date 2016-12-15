@@ -19,10 +19,6 @@ function fighter() {
 
   const types = ['divDrak', 'divRyc', 'divDam'];
 
-  function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
   function leave(observer, $combat) {
     if(config.leave) {
       let leaveEl = $combat.querySelector('#la a');

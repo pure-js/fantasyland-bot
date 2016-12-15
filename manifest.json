@@ -3,7 +3,7 @@
 
   "name": "Fantasyland chrome extension",
   "description": "This extension allaw to you play automaticly",
-  "version": "1.0.2",
+  "version": "1.0.3",
 
   "browser_action": {
     "default_icon": "img/icon.png",
@@ -19,7 +19,8 @@
   "permissions": [
     "tabs",
     "activeTab",
-    "<all_urls> ",
+    "storage",
+    "<all_urls>",
     "http://*.fantasyland.ru/*"
   ]
 }
