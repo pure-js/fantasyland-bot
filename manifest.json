@@ -3,7 +3,7 @@
 
   "name": "Fantasyland chrome extension",
   "description": "This extension allaw to you play automaticly",
-  "version": "1.0.3",
+  "version": "1.1.3",
 
   "browser_action": {
     "default_icon": "img/icon.png",
