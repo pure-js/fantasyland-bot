@@ -19,8 +19,6 @@
   "permissions": [
     "tabs",
     "activeTab",
-    "storage",
-    "<all_urls>",
     "http://*.fantasyland.ru/*"
   ]
 }

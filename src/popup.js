@@ -24,12 +24,6 @@ function randomUnit() {
 }
 
 function captcha() {
-  // chrome.tabs.captureVisibleTab(function (image) {
-  //   // You can add that image HTML5 canvas, or Element.
-  //   console.log('shh');
-  //   console.log(image);
-  // });
-
   chrome.tabs.executeScript({
     file: 'src/captcha.js'
   });
