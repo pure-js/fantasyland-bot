@@ -3,7 +3,7 @@ function getRandomIntInclusive(min, max) {
 }
 
 function getCheerfulness(doc) {
-  const $cheerfulness = doc.getElementById('hru').innerHTML;
+  const $cheerfulness = doc.getElementById('hru').textContent;
   return Number($cheerfulness.split(' ')[1].slice(0, -1));
 }
 
@@ -96,6 +96,7 @@ function findCaptcha(doc) {
 // }
 
 let prevLocation = '';
+let waitBeforeExecuting = getRandomIntInclusive(200, 1000);
 
 function locationObserver(doc) {
   const $title = doc.getElementById('title');
@@ -117,7 +118,8 @@ function locationObserver(doc) {
           console.log(location, prevLocation);
           prevLocation = location;
           observer.disconnect();
-          walk(doc);
+          waitBeforeExecuting += getRandomIntInclusive(200, 1000);
+          setTimeout(walk(doc), waitBeforeExecuting);
         }
       }
     }
@@ -134,7 +136,6 @@ function walk(doc) {
     if (cheers >= 5) {
       lookAround(doc);
       step(doc);
-      const waitBeforeExecuting = getRandomIntInclusive(200, 1000);
       locationObserver(doc);
     } else {
       const wait = (100 - cheers) * 1000;
