@@ -89,6 +89,11 @@ function findCaptcha(doc) {
   return (captcha !== 'none');
 }
 
+function waitForStep(doc) {
+  const field = doc.getElementById('title').getElementsByTagName('b')[0].textContent;
+  console.log(field);
+}
+
 function walk(doc) {
   if (!findCaptcha(doc)) {
     const cheers = getCheerfulness(doc);
@@ -97,13 +102,7 @@ function walk(doc) {
       step(doc);
       const waitBeforeExecuting = getRandomIntInclusive(200, 1000);
       console.log(waitBeforeExecuting);
-      chrome.storage.sync.set({key: 12}, () => {
-        console.log('Value is set to ' + 12);
-      });
-
-      chrome.storage.sync.get(['key'], (result) => {
-        console.log('Value currently is ' + result.key);
-      });
+      waitForStep(doc);
       // setTimeout(walk(doc), waitBeforeExecuting);
     } else {
       const wait = (100 - cheers) * 1000;
