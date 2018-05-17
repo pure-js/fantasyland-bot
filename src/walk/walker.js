@@ -15,7 +15,7 @@ function walker() {
   function directions() {
     const arr = [];
     for (let i = 1; i < 8; i += 2) {
-      const $current = $noCombat.getElementById('d' + i).childNodes[0];
+      const $current = $noCombat.getElementById(`d${i}`).childNodes[0];
       if ($current.title.length > 0) {
         arr.push($current.parentElement.id);
       }

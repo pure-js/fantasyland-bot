@@ -12,7 +12,7 @@ function fight() {
 
 function walk() {
   chrome.tabs.executeScript({
-    file: 'src/walker.js',
+    file: 'src/walk/walker.js',
   });
 }
 
