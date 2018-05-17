@@ -116,8 +116,8 @@ function locationObserver(doc) {
         if (location !== prevLocation) {
           console.log(location, prevLocation);
           prevLocation = location;
-          walk(doc);
           observer.disconnect();
+          walk(doc);
         }
       }
     }
