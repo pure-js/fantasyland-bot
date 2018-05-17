@@ -1,6 +1,4 @@
 function getRandomIntInclusive(min, max) {
-  // const minimum = Math.ceil(min);
-  // const maximum = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
@@ -24,6 +22,8 @@ function getDirectionById(id) {
     case 'd7':
       direction = 'south';
       break;
+    default:
+      break;
   }
   return direction;
 }
@@ -42,6 +42,8 @@ function getIdByDirection(direction) {
       break;
     case 'south':
       id = 'd7';
+      break;
+    default:
       break;
   }
   return id;
@@ -89,9 +91,41 @@ function findCaptcha(doc) {
   return (captcha !== 'none');
 }
 
-function waitForStep(doc) {
-  const field = doc.getElementById('title').getElementsByTagName('b')[0].textContent;
-  console.log(field);
+// function getObjFromString(str) {
+//   const floor = str.indexOf('L-');
+// }
+
+let prevLocation = '';
+
+function locationObserver(doc) {
+  const $title = doc.getElementById('title');
+
+  // Options for the observer (which mutations to observe)
+  const config = {
+    characterData: false,
+    attributes: false,
+    childList: true,
+    subtree: false,
+  };
+
+  // Callback function to execute when mutations are observed
+  function callback(mutationsList) {
+    for (let mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        const location = doc.getElementById('title').getElementsByTagName('b')[0].textContent;
+        if (location !== prevLocation) {
+          console.log(location, prevLocation);
+          prevLocation = location;
+          walk(doc);
+          observer.disconnect();
+        }
+      }
+    }
+  };
+  // Create an observer instance linked to the callback function
+  const observer = new MutationObserver(callback);
+  // Start observing the target node for configured mutations
+  observer.observe($title, config);
 }
 
 function walk(doc) {
@@ -101,9 +135,7 @@ function walk(doc) {
       lookAround(doc);
       step(doc);
       const waitBeforeExecuting = getRandomIntInclusive(200, 1000);
-      console.log(waitBeforeExecuting);
-      waitForStep(doc);
-      // setTimeout(walk(doc), waitBeforeExecuting);
+      locationObserver(doc);
     } else {
       const wait = (100 - cheers) * 1000;
       setTimeout(walk(doc), wait);
@@ -114,6 +146,8 @@ function walk(doc) {
 function walker() {
   const $location = document.getElementById('loc').contentWindow.document;
   const $noCombat = $location.getElementsByName('no_combat')[0].contentWindow.document;
+
+  prevLocation = $noCombat.getElementById('title').getElementsByTagName('b')[0].textContent;
   walk($noCombat);
 }
 walker();
