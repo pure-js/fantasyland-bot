@@ -1,12 +1,12 @@
 function afterEnemy() {
-  let $location = document.getElementById('loc').contentWindow.document;
-  let $combat = $location.getElementById('combat_panel').contentWindow.document;
-  let $enemyFollower = $combat.getElementById('army_pane_r');
+  const $location = document.getElementById('loc').contentWindow.document;
+  const $combat = $location.getElementById('combat_panel').contentWindow.document;
+  const $enemyFollower = $combat.getElementById('army_pane_r');
 
-  let enemyFollowerObserver = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      setTimeout(function() {
-        let enemy = getEnemy();
+  const enemyFollowerObserver = new MutationObserver(((mutations) => {
+    mutations.forEach((mutation) => {
+      setTimeout(() => {
+        const enemy = getEnemy();
         if (enemy === 'Неизвестный') {
           getUnit().click();
         }
@@ -14,11 +14,11 @@ function afterEnemy() {
 
       leave(enemyFollowerObserver, $combat);
     });
-  });
+  }));
 
   const enemyFollowerConfig = {
     childList: true,
-    attributes: true
+    attributes: true,
   };
 
   enemyFollowerObserver.observe($enemyFollower, enemyFollowerConfig);
