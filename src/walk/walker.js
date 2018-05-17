@@ -70,9 +70,7 @@ function pick(doc) {
 
 function lookAround(doc) {
   const picks = doc.getElementById('picks').childNodes.length;
-  if (picks > 0) {
-    pick(doc);
-  }
+  if (picks > 0) pick(doc);
 }
 
 function randomWay(ways) {
@@ -91,17 +89,22 @@ function findCaptcha(doc) {
   return (captcha !== 'none');
 }
 
-let waitBeforeExecuting = getRandomIntInclusive(200, 1000);
-
 function walk(doc) {
   if (!findCaptcha(doc)) {
     const cheers = getCheerfulness(doc);
     if (cheers >= 5) {
       lookAround(doc);
       step(doc);
-      waitBeforeExecuting += getRandomIntInclusive(200, 1000);
+      const waitBeforeExecuting = getRandomIntInclusive(200, 1000);
       console.log(waitBeforeExecuting);
-      setTimeout(walk(doc), waitBeforeExecuting);
+      chrome.storage.sync.set({key: 12}, () => {
+        console.log('Value is set to ' + 12);
+      });
+
+      chrome.storage.sync.get(['key'], (result) => {
+        console.log('Value currently is ' + result.key);
+      });
+      // setTimeout(walk(doc), waitBeforeExecuting);
     } else {
       const wait = (100 - cheers) * 1000;
       setTimeout(walk(doc), wait);
