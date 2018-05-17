@@ -5,7 +5,7 @@ function fighter() {
     maxDelay: 3700,
     leave: true,
     afterEnemy: true
-  }
+  };
 
   const lvl = 3;
 
@@ -14,8 +14,8 @@ function fighter() {
     knight: 2,
     lady: 3,
     regular: 01,
-    poison: 02
-  }
+    poison: 02,
+  };
 
   const types = ['divDrak', 'divRyc', 'divDam'];
 

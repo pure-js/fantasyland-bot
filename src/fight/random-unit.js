@@ -1,6 +1,6 @@
 // Get random follower
 function getUnit() {
-  let types = ['divDrak', 'divRyc', 'divDam'];
+  const types = ['divDrak', 'divRyc', 'divDam'];
 
   let $location = document.getElementById('loc').contentWindow.document;
   let army = $location.getElementById('your_army').contentWindow.document;
@@ -18,7 +18,7 @@ function getUnit() {
     }
     activeUnits.push(unit.id);
   }
-  
+
   let random = getRandomInt(0, activeUnits.length - 1);
   let unit = type.querySelector('#' + activeUnits[random]).querySelector('td.cp');
   return unit;
