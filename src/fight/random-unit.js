@@ -1,3 +1,9 @@
+function getUnitType(arg, types) {
+  const random = getRandomInt(0, types.length - 1);
+  const type = types[random];
+  return arg.getElementById(type);
+}
+
 // Get random follower
 function getUnit() {
   const types = ['divDrak', 'divRyc', 'divDam'];
@@ -22,12 +28,6 @@ function getUnit() {
   const random = getRandomInt(0, activeUnits.length - 1);
   const unit = type.querySelector(`#${activeUnits[random]}`).querySelector('td.cp');
   return unit;
-}
-
-function getUnitType(arg, types) {
-  const random = getRandomInt(0, types.length - 1);
-  const type = types[random];
-  return arg.getElementById(type);
 }
 
 getUnit().click();
