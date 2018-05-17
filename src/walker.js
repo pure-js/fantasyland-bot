@@ -5,7 +5,7 @@ function walker() {
   const config = {
     width: 200,
     height: 200
-  }
+  };
 
   function cheerfulness() {
     let $cheerfulness = $noCombat.getElementById('hru').innerHTML;
