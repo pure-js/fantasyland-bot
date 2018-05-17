@@ -3,7 +3,6 @@ function random() {
     file: 'src/random.js'
   });
 }
-random();
 
 function fight() {
   chrome.tabs.executeScript({
@@ -33,12 +32,18 @@ function toggle(el) {
   console.log(el);
 }
 
-document.getElementById('fight').addEventListener('click', fight);
-document.getElementById('walk').addEventListener('click', walk);
-let toggles = document.getElementsByClassName('toggle');
-for(let el of toggles) {
-  el.addEventListener('click', toggle(this));
+function popup() {
+  random();
+  
+  document.getElementById('fight').addEventListener('click', fight);
+  document.getElementById('walk').addEventListener('click', walk);
+  let toggles = document.getElementsByClassName('toggle');
+  for (let el of toggles) {
+    el.addEventListener('click', toggle(this));
+  }
+  
+  document.getElementById('fight-random').addEventListener('click', randomUnit);
+  document.getElementById('captcha').addEventListener('click', captcha);
 }
 
-document.getElementById('fight-random').addEventListener('click', randomUnit);
-document.getElementById('captcha').addEventListener('click', captcha);
+export default popup();
