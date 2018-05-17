@@ -3,9 +3,9 @@ function afterEnemy() {
   const $combat = $location.getElementById('combat_panel').contentWindow.document;
   const $enemyFollower = $combat.getElementById('army_pane_r');
 
-  const enemyFollowerObserver = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      setTimeout(function() {
+  const enemyFollowerObserver = new MutationObserver(((mutations) => {
+    mutations.forEach((mutation) => {
+      setTimeout(() => {
         const enemy = getEnemy();
         if (enemy === 'Неизвестный') {
           getUnit().click();
@@ -14,7 +14,7 @@ function afterEnemy() {
 
       leave(enemyFollowerObserver, $combat);
     });
-  });
+  }));
 
   const enemyFollowerConfig = {
     childList: true,
