@@ -95,7 +95,6 @@ function findCaptcha(doc) {
 //   const floor = str.indexOf('L-');
 // }
 
-let waitBeforeExecuting = getRandomIntInclusive(200, 1000);
 let iterator = 0;
 
 function locationObserver(doc) {
@@ -125,7 +124,7 @@ function locationObserver(doc) {
             console.log('Value is set to ' + location);
           });
           observer.disconnect();
-          waitBeforeExecuting += getRandomIntInclusive(100, 400);
+          const waitBeforeExecuting = getRandomIntInclusive(50, 300);
           setTimeout(() => {
             walk(doc);
           }, waitBeforeExecuting);
