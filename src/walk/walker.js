@@ -95,8 +95,8 @@ function findCaptcha(doc) {
 //   const floor = str.indexOf('L-');
 // }
 
-let prevLocation = '';
 let waitBeforeExecuting = getRandomIntInclusive(200, 1000);
+let iterator = 0;
 
 function locationObserver(doc) {
   const $title = doc.getElementById('title');
@@ -110,20 +110,29 @@ function locationObserver(doc) {
   };
 
   // Callback function to execute when mutations are observed
-  function callback(mutationsList) {
-    for (let mutation of mutationsList) {
+  function callback(mutationsList, observer) {
+    for (const mutation of mutationsList) {
       if (mutation.type === 'childList') {
         const location = doc.getElementById('title').getElementsByTagName('b')[0].textContent;
+        let prevLocation = '';
+        chrome.storage.sync.get(['prevLocation'], (result) => {
+          prevLocation = result.prevLocation;
+          console.log('Value currently is ' + result.prevLocation);
+        });
         if (location !== prevLocation) {
           console.log(location, prevLocation);
-          prevLocation = location;
+          chrome.storage.sync.set({ prevLocation: location }, () => {
+            console.log('Value is set to ' + location);
+          });
           observer.disconnect();
-          waitBeforeExecuting += getRandomIntInclusive(200, 1000);
-          setTimeout(walk(doc), waitBeforeExecuting);
+          waitBeforeExecuting += getRandomIntInclusive(100, 400);
+          setTimeout(() => {
+            walk(doc);
+          }, waitBeforeExecuting);
         }
       }
     }
-  };
+  }
   // Create an observer instance linked to the callback function
   const observer = new MutationObserver(callback);
   // Start observing the target node for configured mutations
@@ -132,14 +141,23 @@ function locationObserver(doc) {
 
 function walk(doc) {
   if (!findCaptcha(doc)) {
-    const cheers = getCheerfulness(doc);
+    let cheers = 100;
+    if (iterator > 17) {
+      cheers = getCheerfulness(doc);
+    }
     if (cheers >= 5) {
       lookAround(doc);
       step(doc);
+      iterator += 1;
+      console.log(iterator);
       locationObserver(doc);
     } else {
+      console.log('called');
+      iterator = 0;
       const wait = (100 - cheers) * 1000;
-      setTimeout(walk(doc), wait);
+      setTimeout(() => {
+        walk(doc);
+      }, wait);
     }
   }
 }
@@ -148,7 +166,10 @@ function walker() {
   const $location = document.getElementById('loc').contentWindow.document;
   const $noCombat = $location.getElementsByName('no_combat')[0].contentWindow.document;
 
-  prevLocation = $noCombat.getElementById('title').getElementsByTagName('b')[0].textContent;
+  const prevLocation = $noCombat.getElementById('title').getElementsByTagName('b')[0].textContent;
+  chrome.storage.sync.set({ prevLocation }, () => {
+    console.log('Value is set to ' + prevLocation);
+  });
   walk($noCombat);
 }
 walker();
