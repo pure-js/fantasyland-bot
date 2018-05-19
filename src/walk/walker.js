@@ -58,7 +58,6 @@ function directions(doc) {
       availableDirections.push(getDirectionById(id));
     }
   }
-  console.log(availableDirections);
   return availableDirections;
 }
 
@@ -116,12 +115,9 @@ function locationObserver(doc) {
         let prevLocation = '';
         chrome.storage.sync.get(['prevLocation'], (result) => {
           prevLocation = result.prevLocation;
-          console.log('Value currently is ' + result.prevLocation);
         });
         if (location !== prevLocation) {
-          console.log(location, prevLocation);
           chrome.storage.sync.set({ prevLocation: location }, () => {
-            console.log('Value is set to ' + location);
           });
           observer.disconnect();
           const waitBeforeExecuting = getRandomIntInclusive(50, 300);
@@ -148,10 +144,8 @@ function walk(doc) {
       lookAround(doc);
       step(doc);
       iterator += 1;
-      console.log(iterator);
       locationObserver(doc);
     } else {
-      console.log('called');
       iterator = 0;
       const wait = (100 - cheers) * 1000;
       setTimeout(() => {
@@ -166,9 +160,7 @@ function walker() {
   const $noCombat = $location.getElementsByName('no_combat')[0].contentWindow.document;
 
   const prevLocation = $noCombat.getElementById('title').getElementsByTagName('b')[0].textContent;
-  chrome.storage.sync.set({ prevLocation }, () => {
-    console.log('Value is set to ' + prevLocation);
-  });
+  chrome.storage.sync.set({ prevLocation });
   walk($noCombat);
 }
 walker();
