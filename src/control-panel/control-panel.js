@@ -38,7 +38,7 @@ function toggle(el) {
   console.log(el);
 }
 
-function popup() {
+function controlPanel() {
   random();
 
   document.getElementById('fight').addEventListener('click', fight);
@@ -52,4 +52,4 @@ function popup() {
   document.getElementById('captcha').addEventListener('click', captcha);
 }
 
-export default popup();
+export default controlPanel();

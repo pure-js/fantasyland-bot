@@ -2,7 +2,7 @@
   "name": "fantasyland-browser-extension",
   "version": "1.2.0",
   "description": "This browser extension allow you to automate some boring actions",
-  "main": "src/popup.js",
+  "main": "src/control-panel/control-panel.js",
   "scripts": {
     "lint": "eslint src/**/*.js --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
