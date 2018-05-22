@@ -50,8 +50,7 @@ function fighter() {
       activeUnits.push(unit.id);
     }
     let random = getRandomInt(0, activeUnits.length - 1);
-    let unit = type.querySelector('#' + activeUnits[random]).querySelector('td.cp');
-    return unit;
+    return type.querySelector('#' + activeUnits[random]).querySelector('td.cp');
   }
 
   function getUnitType(arg) {
@@ -65,8 +64,7 @@ function fighter() {
     $combat = $location.getElementById('combat_panel').contentWindow.document;
     $enemyFollower = $combat.getElementById('army_pane_r');
     let enemyTitle = $enemyFollower.querySelectorAll('tr td')[2].querySelectorAll('img')[1].title;
-    let enemy = enemyTitle.substr(0, enemyTitle.indexOf(' '));
-    return enemy;
+    return enemyTitle.substr(0, enemyTitle.indexOf(' '));
   }
 
   function logWatcher() {

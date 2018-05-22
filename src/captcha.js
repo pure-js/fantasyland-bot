@@ -56,8 +56,7 @@ function dataURItoBlob(dataURI) {
   }
 
   // write the ArrayBuffer to a blob, and you're done
-  const blob = new Blob([ab], { type: mimeString });
-  return blob;
+  return new Blob([ab], { type: mimeString });
 }
 
 function getBase64Image(img) {
@@ -74,10 +73,7 @@ function getBase64Image(img) {
   // Firefox supports PNG and JPEG. You could check img.src to
   // guess the original format, but be aware the using "image/jpg"
   // will re-encode the image.
-  const dataURL = canvas.toDataURL('image/png');
-
-  // return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-  return dataURL;
+  return canvas.toDataURL('image/png');
 }
 
 function getCaptcha() {
