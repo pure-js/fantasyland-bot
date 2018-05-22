@@ -1,4 +1,4 @@
-# Fantasyland chrome extension
+# Fantasyland browser extension
 Browser extension to help those who play fantasyland.ru  
 Walker for labyrinths  
 Fighter for battles  
