@@ -4,7 +4,7 @@
   "description": "This browser extension allow you to automate some boring actions",
   "main": "src/control-panel/control-panel.js",
   "scripts": {
-    "lint": "eslint src/**/*.js --fix",
+    "lint": "eslint src/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "pure-js",
