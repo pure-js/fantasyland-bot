@@ -3,62 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Fantasyland browser extension</title>
-    <style>
-      body {
-        margin: 0;
-        width: 400px;
-        padding: 0 0;
-      }
-      .control-panel {
-        display: block;
-        overflow: hidden;
-      }
-      .column {
-        width: 50%;
-        padding: 0 10px;
-        float: left;
-        box-sizing: border-box;
-      }
-      .row {
-        margin: 6px 0;
-      }
-      .btn {
-        cursor: pointer;
-        outline: none;
-        background: #fff;
-        border: none;
-      }
-      .btn_active {
-        background: #111;
-        color: #fff;
-      }
-      .fight-btn {
-        border: 1px solid #111;
-        border-radius: 3px;
-        transition: background .5s, border .4s;
-      }
-      .fight-btn:hover {
-        background: #f2f2f2;
-        border: 1px dotted #111;
-      }
-      .settings-btn {
-        width: 20px;
-        height: 20px;
-        background: url('../../img/settings.svg') no-repeat;
-        border: none;
-      }
-      .settings-btn-margin {
-        margin: 0 0 0 2px;
-      }
-      .settings-btn:hover {
-        animation: spin 6s ease-in infinite;
-      }
-      @keyframes spin {
-         100% {
-           transform:rotate(360deg);
-         }
-       }
-    </style>
+    <link rel="stylesheet" href="control-panel.css">
   </head>
   <body>
     <div class="control-panel">
