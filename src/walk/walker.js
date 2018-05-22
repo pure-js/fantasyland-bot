@@ -1,3 +1,9 @@
+window.browser = (() =>
+  window.msBrowser ||
+  window.browser ||
+  window.chrome
+)();
+
 function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -113,11 +119,11 @@ function locationObserver(doc) {
       if (mutation.type === 'childList') {
         const location = doc.getElementById('title').getElementsByTagName('b')[0].textContent;
         let prevLocation = '';
-        chrome.storage.sync.get(['prevLocation'], (result) => {
+        window.browser.storage.sync.get(['prevLocation'], (result) => {
           prevLocation = result.prevLocation;
         });
         if (location !== prevLocation) {
-          chrome.storage.sync.set({ prevLocation: location }, () => {
+          window.browser.storage.sync.set({ prevLocation: location }, () => {
           });
           observer.disconnect();
           const waitBeforeExecuting = getRandomIntInclusive(50, 300);
@@ -160,7 +166,7 @@ function walker() {
   const $noCombat = $location.getElementsByName('no_combat')[0].contentWindow.document;
 
   const prevLocation = $noCombat.getElementById('title').getElementsByTagName('b')[0].textContent;
-  chrome.storage.sync.set({ prevLocation });
+  window.browser.storage.sync.set({ prevLocation });
   walk($noCombat);
 }
 walker();

@@ -1,29 +1,35 @@
+window.browser = (() =>
+  window.msBrowser ||
+  window.browser ||
+  window.chrome
+)();
+
 function random() {
-  chrome.tabs.executeScript({
+  window.browser.tabs.executeScript({
     file: 'src/random.js',
   });
 }
 
 function fight() {
-  chrome.tabs.executeScript({
+  window.browser.tabs.executeScript({
     file: 'src/fighter.js',
   });
 }
 
 function walk() {
-  chrome.tabs.executeScript({
+  window.browser.tabs.executeScript({
     file: 'src/walk/walker.js',
   });
 }
 
 function randomUnit() {
-  chrome.tabs.executeScript({
+  window.browser.tabs.executeScript({
     file: 'src/fight/random-unit.js',
   });
 }
 
 function captcha() {
-  chrome.tabs.executeScript({
+  window.browser.tabs.executeScript({
     file: 'src/captcha.js',
   });
 }
