@@ -1,5 +1,5 @@
 {
-  "name": "fantasyland-chrome-extension",
+  "name": "fantasyland-browser-extension",
   "version": "1.2.0",
   "description": "This browser extension allow you to automate some boring actions",
   "main": "src/popup.js",
@@ -7,19 +7,23 @@
     "lint": "eslint src/**/*.js --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pure-js/fantasyland-chrome-extension.git"
-  },
   "author": "pure-js",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pure-js/fantasyland-chrome-extension/issues"
-  },
-  "homepage": "https://github.com/pure-js/fantasyland-chrome-extension#readme",
   "devDependencies": {
     "eslint": "4.19.1",
     "eslint-config-airbnb-base": "12.1.0",
-    "eslint-plugin-import": "2.11.0"
-  }
+    "eslint-plugin-import": "2.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pure-js/fantasyland-browser-extension.git"
+  },
+  "keywords": [
+    "browser",
+    "extension"
+  ],
+  "bugs": {
+    "url": "https://github.com/pure-js/fantasyland-browser-extension/issues"
+  },
+  "homepage": "https://github.com/pure-js/fantasyland-browser-extension#readme"
 }

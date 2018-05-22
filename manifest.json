@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Fantasyland chrome extension",
+  "name": "Fantasyland browser extension",
   "description": "This browser extension allow you to automate some boring actions",
   "version": "1.2.0",
 
