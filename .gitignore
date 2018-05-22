@@ -5,3 +5,6 @@ build/
 dist/
 
 .DS_store
+
+# Web-ext output folder
+web-ext-artifacts/
